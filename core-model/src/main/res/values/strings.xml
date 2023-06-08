@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="starred">starred</string>
+    <string name="created_repo">created</string>
+    <string name="commented_on_commit">commented on commit</string>
+    <string name="followed">followed</string>
+    <string name="forked">forked</string>
+    <string name="created_gist">gist</string>
+    <string name="gollum">wiki</string>
+    <string name="commented_on_issue">commented on issue</string>
+    <string name="created_issue">created an issue</string>
+    <string name="member">member</string>
+    <string name="public_event">open-sourced</string>
+    <string name="pull_request">pull requests</string>
+    <string name="pr_comment_review">pull request comment</string>
+    <string name="pr_review_event">pull request</string>
+    <string name="repo_event">repository</string>
+    <string name="pushed">pushed to</string>
+    <string name="team_event">team</string>
+    <string name="deleted">deleted</string>
+    <string name="released">released</string>
+    <string name="organization_event">organization</string>
+    <string name="card_event">card</string>
+    <string name="project_event">project</string>
+</resources>

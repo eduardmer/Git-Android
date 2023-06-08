@@ -1,0 +1,46 @@
+package com.core_persistance.mapper
+
+import com.core_model.User
+import com.core_persistance.UserPreferences
+
+fun UserPreferences.toDomainModel() = User(
+    login = login,
+    id = id,
+//node_id = node_id,
+    avatar_url = avatarUrl,
+//gravatar_id = gravatar_id,
+    url = url,
+//html_url = html_url,
+//followers_url = followers_url,
+//following_url = following_url,
+//gists_url = gists_url,
+//starred_url = starred_url,
+//subscriptions_url = subscriptions_url,
+//organizations_url = organizations_url,
+//repos_url = repos_url,
+//events_url = events_url,
+//received_events_url = received_events_url,
+    type = type,
+//site_admin = site_admin,
+//name = name,
+//company = company,
+//blog = blog,
+//location = location,
+    email = email,
+//hireable = hireable,
+    bio = bio,
+//twitter_username = twitter_username,
+    public_repos = publicRepos,
+    public_gists = publicGists,
+    followers = followers,
+    following = following,
+    created_at = createdAt,
+    updated_at = updatedAt,
+    private_gists = privateGists,
+    total_private_repos = totalPrivateRepos,
+    owned_private_repos = ownedPrivateRepos,
+    disk_usage = diskUsage,
+    collaborators = collaborators,
+    two_factor_authentication = true,
+    token = token
+)

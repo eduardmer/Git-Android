@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">GitAndroid</string>
+
+    <string name="home">Home</string>
+    <string name="notifications">Notifications</string>
+    <string name="explore">Explore</string>
+    <string name="profile">Profile</string>
+
+    <string name="sign_in">Sign in with GitHub</string>
+    <string name="create_account">Create an account</string>
+    <string name="terms_privacy">By signing in you accept our
+        <a href="https://docs.github.com/en/site-policy/github-terms/github-terms-of-service">Terms of use</a> and
+        <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement">Privacy Policy</a>.</string>
+
+    <!-- Profile -->
+    <string name="settings">Settings</string>
+    <string name="repositories">Repositories</string>
+    <string name="organizations">Organizations</string>
+    <string name="starred">Starred</string>
+    <string name="followers">followers</string>
+    <string name="following">following</string>
+    <string name="latest">Latest</string>
+</resources>

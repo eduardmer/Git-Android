@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/homeFragment">
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.gitandroid.ui.HomeFragment"
+        android:label="@string/home" >
+        <action
+            android:id="@+id/action_homeFragment_to_searchFragment"
+            app:destination="@id/searchFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/notificationsFragment"
+        android:name="com.gitandroid.ui.NotificationsFragment"
+        android:label="NotificationsFragment" />
+    <fragment
+        android:id="@+id/exploreFragment"
+        android:name="com.gitandroid.ui.ExploreFragment"
+        android:label="ExploreFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.gitandroid.ui.ProfileFragment"
+        android:label="ProfileFragment" >
+        <action
+            android:id="@+id/action_profileFragment_to_followersFragment"
+            app:destination="@id/followersFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.gitandroid.ui.SettingsFragment"
+        android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/followersFragment"
+        android:name="com.gitandroid.ui.FollowersFragment"
+        android:label="{label}">
+        <argument android:name="label"
+            app:argType="string"/>
+        <argument android:name="getFollowers"
+            app:argType="boolean"/>
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.gitandroid.ui.SearchFragment"
+        android:label="SearchFragment" />
+</navigation>
