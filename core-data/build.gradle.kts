@@ -42,6 +42,7 @@ dependencies {
     implementation(project(":core-network"))
     implementation(project(":core-domain"))
     implementation(project(":core-model"))
+    implementation(libs.paging.core)
     implementation(libs.dagger.android)
     kapt(libs.dagger.compiler)
 }

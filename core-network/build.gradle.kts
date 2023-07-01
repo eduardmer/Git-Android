@@ -40,6 +40,7 @@ dependencies {
     androidTestImplementation(libs.androidx.test.junit)
     implementation(libs.retrofit.core)
     implementation(libs.gson.core)
+    implementation(libs.paging.core)
     implementation(libs.dagger.android)
     kapt(libs.dagger.compiler)
     implementation(project(":core-model"))

@@ -1,6 +1,6 @@
-package com.core_network.model
+package com.core_model
 
-data class ActorModel(
+data class OwnerModel(
     val id: Int?,
     val login: String?,
     val avatar_url: String?

@@ -4,6 +4,8 @@ import com.core_domain.repository.LoginRepository
 import com.core_model.User
 import com.core_network.service.LoginService
 import com.core_persistance.PreferencesDataSource
+import com.core_persistance.mapper.toDomainModel
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class LoginRepositoryImpl @Inject constructor(
@@ -11,17 +13,17 @@ class LoginRepositoryImpl @Inject constructor(
     private val localDataSource: PreferencesDataSource
     ) : LoginRepository {
 
-    override suspend fun getAccessToken(
+    override fun getAccessToken(
         clientId: String,
         clientSecret: String,
         code: String,
         redirectUri: String
-    ): String {
-        return service.getAccessToken(clientId, clientSecret, code, redirectUri).access_token
+    ) = flow {
+        emit(service.getAccessToken(clientId, clientSecret, code, redirectUri).access_token)
     }
 
-    override suspend fun login(user: User) {
-        localDataSource.login(user)
+    override fun login(user: User) = flow {
+        emit(localDataSource.login(user))
     }
 
 }

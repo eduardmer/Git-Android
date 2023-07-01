@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import coil.load
+import com.core_model.User
 import com.gitandroid.R
 import com.gitandroid.databinding.FragmentProfileBinding
 import com.gitandroid.ui.adapter.ReposAdapter
@@ -36,10 +37,10 @@ class ProfileFragment : Fragment() {
         binding.viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         binding.viewPager.adapter = adapter
         collectFlow {
-            viewModel.userData.collect {
+            viewModel.profileUiState.collect {
                 when(it) {
-                    is ProfileUiState.Success -> {
-                        it.user.let { user ->
+                    is UiState.Success<*> -> {
+                        (it.data as User).let { user ->
                             binding.apply {
                                 profileImage.load(user.avatar_url)
                                 usernameText.text = user.login
@@ -47,15 +48,15 @@ class ProfileFragment : Fragment() {
                                 followingText.text = user.following.toString()
                                 repositoriesNumberText.text = (user.public_repos + user.total_private_repos).toString()
                             }
+                            adapter.submitList(user.repos)
+                            showProgressBar(false)
                         }
-                        adapter.submitList(it.repos)
-                        showProgressBar(false)
                     }
-                    is ProfileUiState.Error -> {
+                    is UiState.Error -> {
                         Toast.makeText(requireContext(), it.error.message ?: "Error", Toast.LENGTH_SHORT).show()
                         showProgressBar(false)
                     }
-                    ProfileUiState.Loading -> showProgressBar(true)
+                    UiState.Loading -> showProgressBar(true)
                 }
             }
         }

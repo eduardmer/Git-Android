@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">GitAndroid</string>
 
+    <!-- LoginActivity -->
+    <string name="error">An error occurred.</string>
+
     <string name="home">Home</string>
     <string name="notifications">Notifications</string>
     <string name="explore">Explore</string>
@@ -20,4 +23,7 @@
     <string name="followers">followers</string>
     <string name="following">following</string>
     <string name="latest">Latest</string>
+
+    <!-- Search -->
+    <string name="search_github">Search GitHub</string>
 </resources>

@@ -14,8 +14,8 @@ class PreferencesDataSource @Inject constructor(private val dataStore: DataStore
         it.toDomainModel()
     }
 
-    suspend fun login(user: User) {
-        dataStore.updateData {
+    suspend fun login(user: User): User {
+        return dataStore.updateData {
             it.toBuilder()
                 .setLogin(user.login)
                 .setId(user.id ?: 0)
@@ -30,7 +30,7 @@ class PreferencesDataSource @Inject constructor(private val dataStore: DataStore
                 .setTotalPrivateRepos(user.total_private_repos)
                 .setToken(user.token ?: "")
                 .build()
-        }
+        }.toDomainModel()
     }
 
     suspend fun logout() {

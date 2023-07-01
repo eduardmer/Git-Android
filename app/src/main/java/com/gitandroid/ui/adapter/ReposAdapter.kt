@@ -32,7 +32,7 @@ class ReposAdapter : ListAdapter<Repository, ReposAdapter.ReposViewHolder>(DiffC
         }
 
         override fun areContentsTheSame(oldItem: Repository, newItem: Repository): Boolean {
-            return oldItem == newItem
+            return true
         }
     }
 

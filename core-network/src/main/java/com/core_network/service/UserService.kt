@@ -3,6 +3,7 @@ package com.core_network.service
 import com.core_network.model.FollowerModel
 import com.core_network.model.GitEventsModel
 import com.core_network.model.RepositoryModel
+import com.core_network.model.SearchRepositoryModel
 import com.core_network.model.UserModel
 import retrofit2.http.GET
 import retrofit2.http.Header
@@ -13,7 +14,7 @@ import retrofit2.http.Query
 interface UserService {
 
     @GET("user")
-    suspend fun getUser(@Header("Authorization") token: String): UserModel
+    suspend fun getAuthenticatedUser(@Header("Authorization") token: String): UserModel
 
     @GET("user/repos")
     suspend fun getReposForUser(
@@ -30,5 +31,13 @@ interface UserService {
 
     @GET("users/{USERNAME}/received_events")
     suspend fun getEvents(@Path("USERNAME") path: String): List<GitEventsModel>
+
+    @GET("search/repositories")
+    suspend fun searchRepository(
+        @Header("Authorization") token: String,
+        @Query("q") query: String,
+        @Query("per_page") per_page: Int = 20,
+        @Query("page") page: Int
+    ): SearchRepositoryModel
 
 }
