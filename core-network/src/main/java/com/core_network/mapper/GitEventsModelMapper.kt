@@ -11,5 +11,5 @@ fun GitEventsModel.toDomainModel() = GitEvents(
     repo.toDomainModel(),
     payload.toDomainModel(),
     public ?: true,
-    created_at.orEmpty()
+    created_at
 )

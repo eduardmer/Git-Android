@@ -7,7 +7,7 @@ import javax.inject.Inject
 class GetEventsUseCase @Inject constructor(private val userRepository: UserRepository) {
 
     operator fun invoke() = userRepository.user.flatMapLatest {
-        userRepository.getEvents(it.login)
+        userRepository.getEvents(it)
     }
 
 }

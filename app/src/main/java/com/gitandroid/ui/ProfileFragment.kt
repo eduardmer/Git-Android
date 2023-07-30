@@ -9,12 +9,14 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
 import coil.load
 import com.core_model.User
 import com.gitandroid.R
 import com.gitandroid.databinding.FragmentProfileBinding
 import com.gitandroid.ui.adapter.ReposAdapter
+import com.gitandroid.ui.binding.setImage
 import com.gitandroid.utils.addMenu
 import com.gitandroid.utils.collectFlow
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,30 +36,37 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         addMenu(R.menu.profile_fragment_menu, findNavController())
         val adapter = ReposAdapter()
-        binding.viewPager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
-        binding.viewPager.adapter = adapter
-        collectFlow {
-            viewModel.profileUiState.collect {
-                when(it) {
-                    is UiState.Success<*> -> {
-                        (it.data as User).let { user ->
-                            binding.apply {
-                                profileImage.load(user.avatar_url)
-                                usernameText.text = user.login
-                                followersText.text = user.followers.toString()
-                                followingText.text = user.following.toString()
-                                repositoriesNumberText.text = (user.public_repos + user.total_private_repos).toString()
-                            }
-                            adapter.submitList(user.repos)
-                            showProgressBar(false)
+        binding.viewPager.apply {
+            orientation = ViewPager2.ORIENTATION_HORIZONTAL
+            clipToPadding = false
+            clipChildren = false
+            offscreenPageLimit = 2
+            setPadding(0,0,100,0)
+            setPageTransformer(MarginPageTransformer(10))
+            this.adapter = adapter
+        }
+        collectFlow(viewModel.profileUiState) {
+            when(it) {
+                is UiState.Success<*> -> {
+                    (it.data as User).let { user ->
+                        binding.apply {
+                            profileImage.setImage(user.avatar_url)
+                            usernameText.text = user.login
+                            followersText.text = user.followers.toString()
+                            followingText.text = user.following.toString()
+                            repositoriesNumberText.text = (user.public_repos + user.total_private_repos).toString()
+                            starredNumberText.text = user.starred.toString()
+                            organizationsNumberText.text = user.orgs.toString()
                         }
-                    }
-                    is UiState.Error -> {
-                        Toast.makeText(requireContext(), it.error.message ?: "Error", Toast.LENGTH_SHORT).show()
+                        adapter.submitList(user.repos)
                         showProgressBar(false)
                     }
-                    UiState.Loading -> showProgressBar(true)
                 }
+                is UiState.Error -> {
+                    Toast.makeText(requireContext(), it.error.message ?: "Error", Toast.LENGTH_SHORT).show()
+                    showProgressBar(false)
+                }
+                UiState.Loading -> showProgressBar(true)
             }
         }
         binding.textView5.setOnClickListener {
@@ -67,7 +76,7 @@ class ProfileFragment : Fragment() {
             findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToFollowersFragment("Following", false))
         }
         binding.reposLayout.setOnClickListener {
-            Toast.makeText(requireContext(), "Repos", Toast.LENGTH_SHORT).show()
+            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToReposFragment())
         }
         binding.organizationsLayout.setOnClickListener {
             Toast.makeText(requireContext(), "Organizations", Toast.LENGTH_SHORT).show()

@@ -2,6 +2,7 @@ package com.core_network.service
 
 import com.core_network.model.FollowerModel
 import com.core_network.model.GitEventsModel
+import com.core_network.model.OrganizationModel
 import com.core_network.model.RepositoryModel
 import com.core_network.model.SearchRepositoryModel
 import com.core_network.model.UserModel
@@ -16,12 +17,43 @@ interface UserService {
     @GET("user")
     suspend fun getAuthenticatedUser(@Header("Authorization") token: String): UserModel
 
+    @GET("users/{USERNAME}")
+    suspend fun getUserData(@Header("Authorization") token: String, @Path("USERNAME") username: String): UserModel
+
     @GET("user/repos")
-    suspend fun getReposForUser(
+    suspend fun getReposForAuthenticatedUser(
         @Header("Authorization") token: String,
         @Query("sort") sort: String = "updated_at",
-        @Query("per_page") itemsPerPage: Int = 5
+        @Query("per_page") itemsPerPage: Int = 5,
+        @Query("page") page: Int = 1
     ): List<RepositoryModel>
+
+    @GET("/users/{USERNAME}/repos")
+    suspend fun getReposForUser(
+        @Path("USERNAME") username: String,
+        @Query("sort") sort: String = "updated_at",
+        @Query("per_page") itemsPerPage: Int = 20,
+        @Query("page") page: Int
+    ): List<RepositoryModel>
+
+    @GET("repos/{USERNAME}/{REPO}")
+    suspend fun getRepo(
+        @Header("Authorization") token: String,
+        @Path("USERNAME") username: String,
+        @Path("REPO") repo: String
+    ): RepositoryModel
+
+    @GET("user/starred")
+    suspend fun getStarredReposByUser(
+        @Header("Authorization") token: String,
+        @Query("per_page") itemsPerPage: Int = 50
+    ): List<RepositoryModel>
+
+    @GET("user/orgs")
+    suspend fun getOrgs(
+        @Header("Authorization") token: String,
+        @Query("per_page") itemsPerPage: Int = 50
+    ): List<OrganizationModel>
 
     @GET("user/followers")
     suspend fun getFollowers(@Header("Authorization") token: String): List<FollowerModel>
@@ -30,7 +62,7 @@ interface UserService {
     suspend fun getFollowing(@Header("Authorization") token: String): List<FollowerModel>
 
     @GET("users/{USERNAME}/received_events")
-    suspend fun getEvents(@Path("USERNAME") path: String): List<GitEventsModel>
+    suspend fun getEvents(@Header("Authorization") token: String, @Path("USERNAME") path: String): List<GitEventsModel>
 
     @GET("search/repositories")
     suspend fun searchRepository(

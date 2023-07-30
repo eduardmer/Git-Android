@@ -6,8 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.core_model.HomeMenu
 import com.gitandroid.R
 import com.gitandroid.databinding.FragmentHomeBinding
+import com.gitandroid.ui.adapter.HomeMenuAdapter
 import com.gitandroid.utils.addMenu
 
 class HomeFragment : Fragment() {
@@ -22,6 +25,12 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addMenu(R.menu.home_menu, findNavController())
+        val adapter = HomeMenuAdapter()
+        binding.apply {
+            recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+            recyclerView.adapter = adapter
+            adapter.submitList(HomeMenu.values().toList())
+        }
     }
 
 }

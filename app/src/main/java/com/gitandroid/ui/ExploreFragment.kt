@@ -33,19 +33,17 @@ class ExploreFragment : Fragment() {
             recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
             recyclerView.adapter = adapter
         }
-        collectFlow {
-            viewModel.events.collect {
-                when(it) {
-                    is UiState.Success<*> -> {
-                        adapter.submitList(it.data as List<GitEvents>)
-                        binding.progressBar.showProgressBar(false)
-                    }
-                    is UiState.Error -> {
-                        Toast.makeText(requireContext(), it.error.message ?: "Error", Toast.LENGTH_SHORT).show()
-                        binding.progressBar.showProgressBar(false)
-                    }
-                    UiState.Loading -> binding.progressBar.showProgressBar(true)
+        collectFlow(viewModel.events) {
+            when(it) {
+                is UiState.Success<*> -> {
+                    adapter.submitList(it.data as List<GitEvents>)
+                    binding.progressBar.showProgressBar(false)
                 }
+                is UiState.Error -> {
+                    Toast.makeText(requireContext(), it.error.message ?: "Error", Toast.LENGTH_SHORT).show()
+                    binding.progressBar.showProgressBar(false)
+                }
+                UiState.Loading -> binding.progressBar.showProgressBar(true)
             }
         }
     }

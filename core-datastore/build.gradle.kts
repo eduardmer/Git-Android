@@ -61,6 +61,7 @@ dependencies {
     implementation(project(":core-model"))
     testImplementation(libs.junit4)
     androidTestImplementation(libs.androidx.test.junit)
+    implementation(libs.androidx.datastore.core)
     implementation(libs.androidx.protodatastore.core)
     implementation (libs.protobuf.kotlin.lite)
     implementation(libs.dagger.android)

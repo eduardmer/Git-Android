@@ -5,5 +5,6 @@ data class PayloadModel(
     val ref_type: String?,
     val master_branch: String?,
     val description: String?,
-    val pusher_type: String?
+    val pusher_type: String?,
+    val forkee: ForkeeModel?
 )

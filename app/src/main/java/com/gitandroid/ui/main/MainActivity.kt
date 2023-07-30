@@ -9,7 +9,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.gitandroid.R
 import com.gitandroid.databinding.ActivityMainBinding
@@ -28,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
+        setSupportActionBar(binding.toolbar)
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navController = navHostFragment.navController
         appBarConfiguration = AppBarConfiguration(setOf(
@@ -36,15 +35,13 @@ class MainActivity : AppCompatActivity() {
             R.id.notificationsFragment,
             R.id.exploreFragment,
             R.id.profileFragment))
-        setupActionBarWithNavController(navController, appBarConfiguration)
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
         binding.bottomNavigation.setupWithNavController(navController)
 
-        collectFlow {
-            viewModel.isLogged.collect {
-                if (!it) {
-                    startActivity(Intent(this@MainActivity, LoginActivity::class.java))
-                    finish()
-                }
+        collectFlow(viewModel.isLogged) {
+            if (!it) {
+                startActivity(Intent(this@MainActivity, LoginActivity::class.java))
+                finish()
             }
         }
     }

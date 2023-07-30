@@ -20,8 +20,6 @@ class PreferencesDataSource @Inject constructor(private val dataStore: DataStore
                 .setLogin(user.login)
                 .setId(user.id ?: 0)
                 .setAvatarUrl(user.avatar_url)
-                .setUrl(user.url)
-                .setType(user.type)
                 .setEmail(user.email ?: "")
                 .setBio(user.bio ?: "")
                 .setPublicRepos(user.public_repos)

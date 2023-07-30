@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -7,54 +9,77 @@
             type="com.core_model.Follower" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView3"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_marginStart="10dp"
+        <ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
-            app:cardCornerRadius="10dp"
+            android:scaleType="fitXY"
+            app:image="@{item.avatar_url}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <ImageView
-                android:id="@+id/profile_image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="fitXY"
-                app:image="@{item.avatar_url}"
-                tools:srcCompat="@tools:sample/avatars" />
-        </androidx.cardview.widget.CardView>
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/username_text"
+            android:id="@+id/fullname_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:text="@{item.login}"
+            android:layout_marginEnd="20dp"
+            android:text="@{item.fullName}"
             android:textColor="@color/black"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/cardView3"
+            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/cardView3"
-            app:layout_constraintTop_toTopOf="@+id/cardView3" />
+            app:layout_constraintStart_toEndOf="@+id/profile_image"
+            app:layout_constraintTop_toTopOf="@+id/profile_image"
+            tools:text="Eduard Merkaj" />
+
+        <TextView
+            android:id="@+id/username_text"
+            style="@style/SmallTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:text="@{item.login}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/profile_image"
+            app:layout_constraintTop_toBottomOf="@+id/fullname_text"
+            tools:text="eduardmer" />
+
+        <TextView
+            android:id="@+id/bio_text"
+            style="@style/SmallTextStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="20dp"
+            android:text="@{item.bio}"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/profile_image"
+            app:layout_constraintTop_toBottomOf="@+id/username_text"
+            tools:text="Android Engineer." />
 
         <View
             android:id="@+id/divider3"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="1dp"
             android:layout_marginTop="10dp"
             android:background="?android:attr/listDivider"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView3" />
+            app:layout_constraintStart_toStartOf="@+id/bio_text"
+            app:layout_constraintTop_toBottomOf="@+id/bio_text" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

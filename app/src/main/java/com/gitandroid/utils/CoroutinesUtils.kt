@@ -5,15 +5,19 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
-inline fun LifecycleOwner.collectFlow(
+inline fun <T> LifecycleOwner.collectFlow(
+    flow: StateFlow<T>,
     state: Lifecycle.State = Lifecycle.State.STARTED,
-    crossinline blocked: suspend CoroutineScope.() -> Unit
+    crossinline blocked: suspend (T) -> Unit
 ) {
     lifecycleScope.launch {
         repeatOnLifecycle(state) {
-            blocked()
+            flow.collect {
+                blocked(it)
+            }
         }
     }
 }

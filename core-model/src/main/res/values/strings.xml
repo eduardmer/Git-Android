@@ -22,4 +22,12 @@
     <string name="organization_event">organization</string>
     <string name="card_event">card</string>
     <string name="project_event">project</string>
+
+    <string name="issues">Issues</string>
+    <string name="pull_requests">Pull Request</string>
+    <string name="discussions">Discussions</string>
+    <string name="projects">Projects</string>
+    <string name="repositories">Repositories</string>
+    <string name="organizations">Organizations</string>
+    <string name="starred_menu">Starred</string>
 </resources>

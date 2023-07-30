@@ -16,5 +16,5 @@ data class Repository(
     val visibility: String,
     val watchers: Int,
     val default_branch: String,
-    val user: User
+    val owner: Owner
 )

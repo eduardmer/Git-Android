@@ -15,5 +15,6 @@ data class RepositoryModel(
     val forks_count: Int?,
     val visibility: String?,
     val watchers: Int?,
-    val default_branch: String?
+    val default_branch: String?,
+    val owner: OwnerModel?
 )

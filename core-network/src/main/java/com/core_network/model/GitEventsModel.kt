@@ -1,6 +1,7 @@
 package com.core_network.model
 
 import com.core_model.EventType
+import java.util.Date
 
 data class GitEventsModel(
     val id: String?,
@@ -9,5 +10,5 @@ data class GitEventsModel(
     val repo: RepoModel,
     val payload: PayloadModel,
     val public: Boolean?,
-    val created_at: String?
+    val created_at: Date
 )

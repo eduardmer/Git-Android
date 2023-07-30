@@ -1,5 +1,7 @@
 package com.core_model
 
+import java.util.Date
+
 data class GitEvents(
     val id: String,
     val type: EventType,
@@ -7,7 +9,7 @@ data class GitEvents(
     val repo: Repo,
     val payload: Payload,
     val public: Boolean,
-    val created_at: String
+    val created_at: Date
 )
 
 data class Actor(
@@ -19,7 +21,11 @@ data class Actor(
 data class Repo(
     val id: Int,
     val name: String,
-    val url: String
+    val url: String,
+    var user_avatar_url: String = "",
+    var description: String = "",
+    var stargazers_count: Int = 0,
+    var language: String = ""
 )
 
 data class Payload(
@@ -27,5 +33,17 @@ data class Payload(
     val ref_type: String,
     val master_branch: String,
     val description: String,
-    val pusher_type: String
+    val pusher_type: String,
+    val forkee: Forkee
+)
+
+data class Forkee(
+    val id: Long = -1,
+    val node_id: String = "",
+    val name: String = "",
+    val full_name: String = "",
+    val description: String = "",
+    val stargazers_count: Int = 0,
+    val watchers_count: Int = 0,
+    val language: String = ""
 )

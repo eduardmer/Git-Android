@@ -7,8 +7,11 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray2">#9195A1</color>
     <color name="gray3">#C4C7C5</color>
+    <color name="gray4">#6E7078</color>
     <color name="blue">#0266D6</color>
     <color name="gray">#EFF0F5</color>
     <color name="orange">#FF5722</color>
     <color name="yellow">#FFC107</color>
+    <color name="dark_blue">#232832</color>
+    <color name="blue2">#016390</color>
 </resources>

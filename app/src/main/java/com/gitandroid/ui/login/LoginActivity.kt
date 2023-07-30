@@ -27,17 +27,15 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        collectFlow {
-            viewModel.uiState.collect {
-                when(it) {
-                    UiState.LoggedIn -> startActivity(Intent(this@LoginActivity, MainActivity::class.java))
-                    UiState.LoggedOut -> binding.progressBar.showProgressBar(false)
-                    is UiState.Error -> {
-                        binding.progressBar.showProgressBar(false)
-                        Toast.makeText(this@LoginActivity, it.error.message ?: "Error", Toast.LENGTH_SHORT).show()
-                    }
-                    UiState.Loading -> binding.progressBar.showProgressBar(true)
+        collectFlow(viewModel.uiState) {
+            when(it) {
+                UiState.LoggedIn -> startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                UiState.LoggedOut -> binding.progressBar.showProgressBar(false)
+                is UiState.Error -> {
+                    binding.progressBar.showProgressBar(false)
+                    Toast.makeText(this@LoginActivity, it.error.message ?: "Error", Toast.LENGTH_SHORT).show()
                 }
+                UiState.Loading -> binding.progressBar.showProgressBar(true)
             }
         }
         binding.apply {

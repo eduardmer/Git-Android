@@ -58,7 +58,7 @@ dependencies {
 
     implementation(libs.dagger.android)
     kapt(libs.dagger.compiler)
-
+    implementation(libs.paging.core)
     implementation(libs.androidx.navigation.ui)
     implementation(libs.androidx.navigation.fragment)
     implementation(libs.android.coil)

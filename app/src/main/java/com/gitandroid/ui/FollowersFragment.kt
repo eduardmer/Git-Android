@@ -38,19 +38,17 @@ class FollowersFragment : Fragment() {
         val flow = if (args.getFollowers)
             viewModel.followers
         else viewModel.following
-        collectFlow {
-            flow.collect {
-                when(it) {
-                    is UiState.Success<*> -> {
-                        adapter.submitList(it.data as List<Follower>)
-                        showProgressBar(false)
-                    }
-                    is UiState.Error -> {
-                        Toast.makeText(requireContext(), it.error.message ?: "Error", Toast.LENGTH_SHORT).show()
-                        showProgressBar(false)
-                    }
-                    UiState.Loading -> showProgressBar(true)
+        collectFlow(flow) {
+            when(it) {
+                is UiState.Success<*> -> {
+                    adapter.submitList(it.data as List<Follower>)
+                    showProgressBar(false)
                 }
+                is UiState.Error -> {
+                    Toast.makeText(requireContext(), it.error.message ?: "Error", Toast.LENGTH_SHORT).show()
+                    showProgressBar(false)
+                }
+                UiState.Loading -> showProgressBar(true)
             }
         }
     }
