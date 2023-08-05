@@ -46,13 +46,15 @@ interface UserService {
     @GET("user/starred")
     suspend fun getStarredReposByUser(
         @Header("Authorization") token: String,
-        @Query("per_page") itemsPerPage: Int = 50
+        @Query("per_page") itemsPerPage: Int = 50,
+        @Query("page") page: Int = 1
     ): List<RepositoryModel>
 
     @GET("user/orgs")
     suspend fun getOrgs(
         @Header("Authorization") token: String,
-        @Query("per_page") itemsPerPage: Int = 50
+        @Query("per_page") itemsPerPage: Int = 50,
+        @Query("page") page: Int = 1
     ): List<OrganizationModel>
 
     @GET("user/followers")

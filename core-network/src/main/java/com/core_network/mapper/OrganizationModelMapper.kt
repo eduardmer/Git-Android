@@ -7,5 +7,6 @@ fun OrganizationModel.toDomainModel() = Organization(
     login.orEmpty(),
     id ?: -1,
     node_id.orEmpty(),
+    avatar_url.orEmpty(),
     description.orEmpty()
 )

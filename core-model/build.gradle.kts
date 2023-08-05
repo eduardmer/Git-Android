@@ -1,6 +1,6 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
 }
 
 android {
@@ -34,7 +34,5 @@ android {
 }
 
 dependencies {
-    testImplementation(libs.junit4)
-    androidTestImplementation(libs.androidx.test.junit)
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    implementation(libs.kotlinx.coroutines)
 }

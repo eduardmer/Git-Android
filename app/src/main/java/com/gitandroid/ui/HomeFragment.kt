@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.core_model.HomeMenu
 import com.gitandroid.R
@@ -24,7 +23,9 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        addMenu(R.menu.home_menu, findNavController())
+        addMenu(R.menu.home_menu) {
+            false
+        }
         val adapter = HomeMenuAdapter()
         binding.apply {
             recyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

@@ -8,6 +8,7 @@ import com.core_domain.use_case.GetEventsUseCase
 import com.core_domain.use_case.GetFollowersUseCase
 import com.core_domain.use_case.GetFollowingUseCase
 import com.core_domain.use_case.GetReposUseCase
+import com.core_domain.use_case.GetStarredReposUseCase
 import com.core_model.Result
 import com.core_model.asResult
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,7 +24,8 @@ class SharedViewModel @Inject constructor(
     getEventsUseCase: GetEventsUseCase,
     getFollowersUseCase: GetFollowersUseCase,
     getFollowingUseCase: GetFollowingUseCase,
-    getReposUseCase: GetReposUseCase
+    getReposUseCase: GetReposUseCase,
+    getStarredReposUseCase: GetStarredReposUseCase
 ) : ViewModel() {
 
     val profileUiState: StateFlow<UiState> = getAuthenticatedUserUseCase().asResult().map { result ->
@@ -75,6 +77,12 @@ class SharedViewModel @Inject constructor(
     )
 
     val repos = getReposUseCase().stateIn(
+        viewModelScope,
+        SharingStarted.WhileSubscribed(5_000),
+        PagingData.empty()
+    )
+
+    val starredRepos = getStarredReposUseCase().stateIn(
         viewModelScope,
         SharingStarted.WhileSubscribed(5_000),
         PagingData.empty()

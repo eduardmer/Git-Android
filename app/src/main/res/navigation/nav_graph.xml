@@ -42,6 +42,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_profileFragment_to_starredReposFragment"
+            app:destination="@id/starredReposFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -64,4 +71,8 @@
         android:id="@+id/reposFragment"
         android:name="com.gitandroid.ui.ReposFragment"
         android:label="ReposFragment" />
+    <fragment
+        android:id="@+id/starredReposFragment"
+        android:name="com.gitandroid.ui.StarredReposFragment"
+        android:label="StarredReposFragment" />
 </navigation>

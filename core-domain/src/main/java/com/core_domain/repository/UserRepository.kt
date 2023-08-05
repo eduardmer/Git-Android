@@ -21,7 +21,11 @@ interface UserRepository {
 
     fun getReposForUser(token: String): Flow<PagingData<Repository>>
 
+    fun getStarredReposByAuthUser(token: String): Flow<PagingData<Repository>>
+
     fun getStarredReposByUser(token: String): Flow<List<Repository>>
+
+    fun getOrgsForAuthUser(token: String): Flow<PagingData<Organization>>
 
     fun getOrganizations(token: String): Flow<List<Organization>>
 

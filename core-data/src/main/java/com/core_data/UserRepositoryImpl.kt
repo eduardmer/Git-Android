@@ -11,12 +11,14 @@ import com.core_model.GitEvents
 import com.core_model.Organization
 import com.core_model.Repository
 import com.core_model.User
-import com.core_network.RepositoryPagingSource
-import com.core_network.SearchPagingSource
-import com.core_network.SearchPagingSource.Companion.INITIAL_LOAD_SIZE
-import com.core_network.SearchPagingSource.Companion.LOAD_SIZE
+import com.core_network.INITIAL_LOAD_SIZE
+import com.core_network.LOAD_SIZE
+import com.core_network.paging_source.RepositoryPagingSource
+import com.core_network.paging_source.SearchPagingSource
+import com.core_network.paging_source.StarredReposPagingSource
 import com.core_network.mapper.toDomainModel
 import com.core_network.model.RepositoryItem
+import com.core_network.paging_source.OrganizationsPagingSource
 import com.core_network.service.UserService
 import com.core_persistance.PreferencesDataSource
 import kotlinx.coroutines.flow.Flow
@@ -53,13 +55,30 @@ class UserRepositoryImpl @Inject constructor(
     override fun getReposForUser(token: String): Flow<PagingData<Repository>> {
         return Pager(
             config = PagingConfig(
-                pageSize = RepositoryPagingSource.LOAD_SIZE,
-                prefetchDistance = RepositoryPagingSource.LOAD_SIZE,
+                pageSize = LOAD_SIZE,
+                prefetchDistance = LOAD_SIZE,
                 enablePlaceholders = false,
-                initialLoadSize = RepositoryPagingSource.LOAD_SIZE
+                initialLoadSize = LOAD_SIZE
             )
         ) {
             RepositoryPagingSource(token, service)
+        }.flow.map { pagingData ->
+            pagingData.map {
+                it.toDomainModel()
+            }
+        }
+    }
+
+    override fun getStarredReposByAuthUser(token: String): Flow<PagingData<Repository>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = LOAD_SIZE,
+                prefetchDistance = LOAD_SIZE,
+                enablePlaceholders = false,
+                initialLoadSize = LOAD_SIZE
+            )
+        ) {
+            StarredReposPagingSource(token, service)
         }.flow.map { pagingData ->
             pagingData.map {
                 it.toDomainModel()
@@ -72,6 +91,23 @@ class UserRepositoryImpl @Inject constructor(
             it.toDomainModel()
         }
         emit(repos)
+    }
+
+    override fun getOrgsForAuthUser(token: String): Flow<PagingData<Organization>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = LOAD_SIZE,
+                prefetchDistance = LOAD_SIZE,
+                enablePlaceholders = false,
+                initialLoadSize = LOAD_SIZE
+            )
+        ) {
+            OrganizationsPagingSource(token, service)
+        }.flow.map { pagingData ->
+            pagingData.map {
+                it.toDomainModel()
+            }
+        }
     }
 
     override fun getOrganizations(token: String): Flow<List<Organization>> = flow {

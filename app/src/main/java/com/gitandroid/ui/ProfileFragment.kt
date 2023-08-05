@@ -1,5 +1,6 @@
 package com.gitandroid.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,6 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.MarginPageTransformer
 import androidx.viewpager2.widget.ViewPager2
-import coil.load
 import com.core_model.User
 import com.gitandroid.R
 import com.gitandroid.databinding.FragmentProfileBinding
@@ -34,7 +34,20 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        addMenu(R.menu.profile_fragment_menu, findNavController())
+        addMenu(R.menu.profile_fragment_menu) { menuItem ->
+            when(menuItem.itemId) {
+                R.id.share -> {
+                    startActivity(
+                        Intent(Intent.ACTION_SEND)
+                            .putExtra(Intent.EXTRA_TEXT, "https://github.com/${binding.usernameText.text}")
+                            .setType("text/plain")
+                    )
+                    true
+                }
+                R.id.settings -> false
+                else -> false
+            }
+        }
         val adapter = ReposAdapter()
         binding.viewPager.apply {
             orientation = ViewPager2.ORIENTATION_HORIZONTAL
@@ -69,20 +82,22 @@ class ProfileFragment : Fragment() {
                 UiState.Loading -> showProgressBar(true)
             }
         }
-        binding.textView5.setOnClickListener {
-            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToFollowersFragment("Followers", true))
-        }
-        binding.textView7.setOnClickListener {
-            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToFollowersFragment("Following", false))
-        }
-        binding.reposLayout.setOnClickListener {
-            findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToReposFragment())
-        }
-        binding.organizationsLayout.setOnClickListener {
-            Toast.makeText(requireContext(), "Organizations", Toast.LENGTH_SHORT).show()
-        }
-        binding.starredLayout.setOnClickListener {
-            Toast.makeText(requireContext(), "Starred", Toast.LENGTH_SHORT).show()
+        binding.apply {
+            followersButton.setOnClickListener {
+                findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToFollowersFragment("Followers", true))
+            }
+            followingButton.setOnClickListener {
+                findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToFollowersFragment("Following", false))
+            }
+            reposLayout.setOnClickListener {
+                findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToReposFragment())
+            }
+            organizationsLayout.setOnClickListener {
+                Toast.makeText(requireContext(), "Organizations", Toast.LENGTH_SHORT).show()
+            }
+            starredLayout.setOnClickListener {
+                findNavController().navigate(ProfileFragmentDirections.actionProfileFragmentToStarredReposFragment())
+            }
         }
     }
 
